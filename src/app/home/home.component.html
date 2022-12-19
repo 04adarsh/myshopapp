@@ -1,0 +1,30 @@
+<div class="container my-5">
+  <h1 class="text-center">Welcome to MyShopApp</h1>
+  <div class="container">
+    <div class="row my-5">
+      <div class=" col-lg-4 col-md-6" *ngFor="let product of products">
+        <div class="card my-2 p-2">
+          <div class="card-image">
+            <img [src]="product.productUrl" alt="...">
+          </div>
+
+          <div class="card-body">
+            <h5 class="card-title" style="font-size: 1.2rem; font-weight: bold;">{{product.productName.substr(0,50)}}
+            </h5>
+            <p class="card-text">{{product.productDescription.substr(0,100)}}</p>
+            <span>{{product.productPrice | currency:'INR'}}</span><br>
+            <div class="buttons d-flex">
+              <Button class="btn btn-outline-danger btn-sm my-2">Add to wishlist<i
+                  class="fa-sharp fa-solid fa-heart-circle-plus mx-2"></i></Button>
+              <Button class="btn btn-outline-dark btn-sm my-2 mx-2">Add to Cart<i
+                  class="fa-sharp fa-solid fa-cart-plus mx-2"></i></Button>
+
+            </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

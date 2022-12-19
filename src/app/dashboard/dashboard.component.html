@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="content my-5">
+        <h1 class="text-center">Welcome to dashboard</h1>
+        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onAdd()">Add New Product</button>
+        <div class="table-responsive my-4">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Product Id</th>
+                        <th>Product Name</th>
+                        <th>product Description</th>
+                        <th>Product Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of products">
+                        <td>{{row.id}}</td>
+                        <td>{{row.productName.substr(0,100)}}</td>
+                        <td>{{row.productDescription.substr(0,100)}}</td>
+                        <td>{{row.productPrice}}</td>
+                        <td>
+                            <i class="bi bi-pencil-square mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onEdit(row)"></i>
+                            <i class="bi bi-trash3-fill my-2" (click)="deleteProduct(row)"></i>
+              
+
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Product Form</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="formValue">
+        
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Product Name</label>
+                <input type="text" class="form-control" formControlName="productName" id="exampleFormControlInput1" placeholder="product name">
+                <span class="text-danger" *ngIf="formValue.controls['productName'].dirty && formValue.hasError('required','productName')">*required</span>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Product Description</label>
+                <textarea class="form-control" formControlName="productDescription" id="exampleFormControlTextarea1" rows="2"></textarea>
+                <span class="text-danger" *ngIf="formValue.controls['productDescription'].dirty && formValue.hasError('required','productDescription')">*required</span>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Product Price</label>
+                <input type="number" formControlName="productPrice" class="form-control" id="exampleFormControlInput1" placeholder="price">
+                <span class="text-danger" *ngIf="formValue.controls['productPrice'].dirty && formValue.hasError('required','productPrice')">*required</span>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Product Image url</label>
+                <input type="text" formControlName="productUrl" class="form-control" id="exampleFormControlInput1" placeholder="image url">
+                <span class="text-danger" *ngIf="formValue.controls['productUrl'].dirty && formValue.hasError('required','productUrl')">*required</span>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">Close</button>
+          <button type="button" class="btn btn-primary" [disabled]="!formValue.valid"(click)="addProduct()" *ngIf="isAdd">Add</button>
+          <button type="button" class="btn btn-primary"  [disabled]="!formValue.valid" (click)="updateProduct()" *ngIf="isUpdate">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
